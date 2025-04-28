@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <p class="hello">hello world</p>
+    <p>hello world</p>
+    <script>
+        // 실무에서 자주 사용되었던 고전 기법들
+        // 이제는 절대 사용하지 않습니다.
+        // $('.hello').fadeIn(2000).fadeOut(2000).fadeIn(2000).fadeOut(2000);
+
+        // // basic
+        // $(".hello").hide();
+        // $(".hello").show();
+        $(".hello").toggle();
+
+        // // fading
+        // $(".hello").fadeIn();
+        // $(".hello").fadeOut();
+        // $(".hello").fadeToggle(2000);
+
+        // // fadeTo(duration, opacity)
+        // $(".hello").fadeTo("slow", 0);
+        // $(".hello").fadeTo("fast", 1);
+        // $(".hello").fadeTo(3000, 0);
+
+        // // slide
+        // $(".hello").slideUp();
+        // $(".hello").slideDown();
+        // $(".hello").slideToggle();
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <ul>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+    </ul>
+    <script>
+        // HTMLCollection (라이브)
+        const htmlCollection = document.getElementsByTagName('li');
+        console.log(htmlCollection.length);
+
+        // DOM에 새 li 요소 추가
+        const newLi = document.createElement('li');
+        document.querySelector('ul').appendChild(newLi);
+
+        console.log(htmlCollection.length);
+
+        // NodeList (정적 - querySelectorAll)
+        const nodeList = document.querySelectorAll('li');
+        console.log(nodeList.length);
+
+        // DOM에 새 li 요소 추가
+        const anotherLi = document.createElement('li');
+        document.querySelector('ul').appendChild(anotherLi);
+
+        console.log(nodeList.length);
+    </script>
+</body>
+</html>

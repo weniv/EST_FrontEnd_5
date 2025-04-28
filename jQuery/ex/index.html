@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gallery</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+
+</head>
+
+<body>
+
+  <div class="gallery">
+    <div class="view-frame">
+      <img src="./img/img1.jpg" />
+    </div>
+
+    <ul class="img-container">
+      <li class="selected"><img src="./img/img1.jpg" /></li>
+      <li><img src="./img/img2.jpg" /></li>
+      <li><img src="./img/img3.jpg" /></li>
+      <li><img src="./img/img4.jpg" /></li>
+      <li><img src="./img/img5.jpg" /></li>
+    </ul>
+  </div>
+
+  <script src="./script.js"></script>
+  <script>
+      $('.img-container li').on('click', function () {
+          // 클릭한 이미지의 src를 가져와서 view-frame에 있는 img의 src로 설정
+          const imgSrc = $(this).find('img').attr('src');
+          $('.view-frame img').attr('src', imgSrc);
+
+          // 선택된 li에 selected 클래스 추가
+          $('.img-container li').removeClass('selected');
+          $(this).addClass('selected');
+      });
+  </script>
+</body>
+
+</html>

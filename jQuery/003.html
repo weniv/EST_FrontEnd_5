@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+</head>
+<body>
+    <ol class="container">
+        <li class="changeTest">hello</li>
+        <li>hello</li>
+    </ol>
+    <button id="one">one</button>
+    <button id="two">two</button>
+    <script>
+        // HTMLCollection, NodeList
+        const htmlCollection = document.getElementsByClassName('container');
+        const nodeList = document.querySelectorAll('li');
+        const changeTest = document.querySelector('.changeTest');
+        const buttonOne = document.getElementById('one');
+        const buttonTwo = document.getElementById('two');
+
+        console.log(htmlCollection); // HTMLCollection(1) [ol.container]
+        console.log(nodeList); // NodeList(2) [li, li]
+
+        buttonOne.addEventListener('click', function() {
+            // changeTest 변경해서 변영되는지 체크
+            changeTest.innerText = 'hello world';
+        });
+        
+    </script>
+</body>
+</html>

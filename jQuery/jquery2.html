@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <p class="one">Hello</p>
+    <p class="one">Hello</p>
+    <script>
+        function $(selector){
+            if (!selector) return {};
+            const element = document.querySelectorAll(selector);
+
+            const result = {
+                length: element.length,
+                item: function(index) {
+                    return element[index];
+                },
+                forEach: function(callback) {
+                    for (let i = 0; i < element.length; i++) {
+                        // console.log(callback);
+                        callback(element[i], i);
+                    }
+                },
+                innerHTML: function(value) {
+                    if (value !== undefined) {
+                        this.forEach(function(el) {
+                            el.innerHTML = value;
+                        });
+                    } else {
+                        return this.item(0).innerHTML;
+                    }
+                },
+                addClass: function(className) {
+                    this.forEach(function(el) {
+                        el.classList.add(className);
+                    });
+                },
+                removeClass: function(className) {
+                    this.forEach(function(el) {
+                        el.classList.remove(className);
+                    });
+                },
+            };
+
+            return result;
+        }
+
+        $('.one').innerHTML = 'Hello, World!';
+        console.log($('.one').item(0).innerHTML); // Hello, World!
+        console.log($('.one').item(1).innerHTML); // Hello, World!
+
+        $('.one').forEach(function(el, index) {
+            console.log(index, el.innerHTML); // Hello, World!
+        });
+
+        $('.one').addClass('new-class');
+    </script>
+</body>
+</html>

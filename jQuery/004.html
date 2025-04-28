@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li>0: hello <strong>world</strong></li>
+        <li class="item">1: hello world</li>
+        <li class="item">2: hello world</li>
+        <li>3: <strong>hello</strong> world</li>
+        <li>4: hello</li>
+        <li>5: hello</li>
+        <li>6: hello</li>
+        <li style="display: none;">7: hello world</li>
+        <li></li>
+    </ul>
+    <script>
+        // eq
+        // $("li").eq(0).css("color", "red");
+        // $("li").eq(1).css("color", "blue");
+        // $("li").not(':eq(3)').css("color", "green");
+
+        // lt는 less than, gt는 greater than
+        // $("li:lt(3)").css("color", "yellow");
+        // $("li:gt(3)").css("color", "purple");
+        // 짝수
+        // $("li:even").css("color", "orange");
+        // 홀수
+        // $("li:odd").css("color", "pink");
+
+        // document.querySelectorAll("li").forEach((item, index) => {
+        //     if (index % 2 === 0) {
+        //         item.style.color = "orange";
+        //     } else {
+        //         item.style.color = "pink";
+        //     }
+        // });
+
+        // first
+        // $("li:first").css("color", "red");
+        // last
+        // $("li:last").css("color", "red");
+
+        // nth-child
+        // $('li:nth-child(2n)').css("color", "red");
+        // $('li:nth-child(2n-1)').css("color", "red");
+
+        // contains
+        // $("li:contains('world')").css("color", "red");
+
+        // empty
+        // $("li:empty").css("color", "red");
+
+        // has
+        $("li:has(strong)").css("color", "red");
+        // document.querySelectorAll("li").forEach((item) => {
+        //     if (item.querySelector("strong")) {
+        //         item.style.color = "red";
+        //     }
+        // });
+
+        // hidden / visible
+        $("li:hidden").show().css("color", "red");
+        // document.querySelectorAll("li").forEach((item) => {
+        //     if (item.style.display === "none") {
+        //         item.style.display = "block";
+        //         item.style.color = "red";
+        //     }
+        // });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <p>hello world one</p>
+    <div>hello world two</div>
+    <form class="form" action="">
+        <label for="userid">
+            아이디:
+            <input id="userid" type="text" placeholder="아이디를 입력하세요.">
+        </label>
+        <label for="userpw">
+            비밀번호:
+            <input id="userpw" type="password" placeholder="비밀번호를 입력하세요.">
+        </label>
+    </form>
+    <img src="a/b/c/images.jpg" alt="">
+    <button class="uservalue">눌러!</button>
+    <script>
+        // $('p').text('안녕하세요. 제이쿼리 하고 있어요. 재미있나요? jquery 흥미있나요?');
+        // $('div').html('<div><p>안녕하세요!<br>제이쿼리 하고 있어요.</p></div>')
+        // $('div').html('<div><p>안녕하세요!<br>제이쿼리 하고 있어요.</p></div>').find('p').css('color', 'red');
+        // jquery
+        // $('.uservalue').click(function () {
+        //     // alert($('.form').find('input[type="text"]').eq(0).val());
+        //     alert($('.form').find('input[type="text"]').eq(0).attr('type'));
+        //     alert($('.form').find('input[type="password"]').eq(0).attr('type'));
+        //     alert($('img').attr('src'));
+        // });
+
+        // javascript
+        document.querySelector('.uservalue').addEventListener('click', function () {
+            alert(document.querySelector('img').getAttribute('src'));
+        });
+    </script>
+</body>
+</html>

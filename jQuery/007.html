@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <div>
+            hello one
+        </div>
+        <div class="standard">
+            hello two
+        </div>
+        <div>
+            hello three
+        </div>
+    </div>
+    <div>
+        <div>
+            hello four
+        </div>
+        <div>
+            hello five
+            <div>hello six</div>
+            <p>hello</p>
+            <p>hello</p>
+            <p>hello</p>
+        </div>
+    </div>
+    <script>
+        // parent
+        // parents
+        // closest
+        // children
+        // first / last
+        // find
+        // prev / next
+
+        // jquery 문제
+        // 제약사항: 요소 선택은 .standard로만 진행하세요.
+        // 1. hello three를 안녕하세요로 바꿔주세요.
+        // $('.standard').next().text('안녕하세요!');
+        // $('.standard').parent().children().eq(2).text('안녕하세요!!!');
+
+        // 2. hello four를 hello world!!로 텍스트를 바꾸고, color를 red로 바꿔주세요.
+        // $('.standard').parent().next().children().first().text('hello world!!!!').css('color', 'red');
+        // $('.standard').parent().next().children().eq(0).text('hello world!!').css('color', 'red');
+
+        // 3. p 태그를 모두 선택해서 color를 blue로 바꿔주세요.
+        $('.standard').parent().next().find('p').css('color', 'blue');
+    </script>
+</body>
+</html>

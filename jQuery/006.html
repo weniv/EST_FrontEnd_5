@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        1. div
+        <div>
+            2. div
+            <ul>
+            <li>
+                li
+                <p>p <strong>strong</strong></p>
+                <strong>strong <em>em</em></strong>
+                <p>p <em>em</em></p>
+            </li>
+            <li class="standard">
+                li.standard
+                <p>p <strong>strong</strong></p>
+                <strong>strong <em>em</em></strong>
+                <p>p <em>em</em></p>
+            </li>
+            <li>
+                li
+                <p>p <strong>strong</strong></p>
+                <strong>strong <em>em</em></strong>
+                <p>p <em>em</em></p>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // 외워야 할 것
+        // nodelist는 foreach가 있고, htmlcollection은 foreach가 없다.
+        // 바닐라 JS: dom에서 부모 접근할 때에는 parentElement를 사용!
+        // 바닐라 JS: dom에서 첫번째 자식은 firstElementChild, 마지막 자식은 lastElementChild를 사용!
+
+
+
+        // parent
+        // jquery
+        // $('.standard').css('color', 'red'); // class 선택자
+        // $('.standard').parent().css('color', 'green'); // class 선택자
+        // javascript
+        // const standard = document.querySelector('.standard');
+        // standard.parentElement.style.color = 'blue'; // class 선택자
+
+        // parents
+        // jquery
+        // $('.standard').parents().css('color', 'red'); // class 선택자
+        // javascript
+        // document.querySelector('.standard').parentElement.parentElement.style.color = 'blue'; // class 선택자
+        // document.querySelector('.standard').parentElement.parentElement.parentElement.style.color = 'blue'; // class 선택자
+
+        // closest
+        // 가장 가까운 조상 요소를 찾는 메서드
+        // jquery
+        // $('.standard').closest('div').css('color', 'red');
+        // javascript
+        // document.querySelector('.standard').closest('div').style.color = 'blue';
+
+        // children
+        // jquery
+        // 직계 자식 요소를 찾는 메서드
+        // $('.standard').children().css('color', 'red'); // class 선택자
+        // javascript
+        // document.querySelector('.standard').children // HTMLCollection
+        // foreach 없음!
+        // for (const child of document.querySelector('.standard').children){
+        //     console.log(child)
+        // }
+        // document.querySelector('.standard').childNodes // NodeList
+        // document.querySelectorAll('.standard') // NodeList
+        // foreach 있음!
+
+        // first / last
+        // jquery
+        // $('.standard').children().first().css('color', 'red'); // class 선택자
+        // $('.standard').children().last().css('color', 'red'); // class 선택자
+        // javascript
+        // const standard = document.querySelector('.standard');
+        // standard.firstElementChild.style.color = 'blue'; // class 선택자
+        // standard.lastElementChild.style.color = 'red'; // class 선택자
+
+        // find
+        // jquery
+        // 아래처럼 사용하면 standard 하위 요소를 탐색합니다.
+        $('.standard').find('p').css('color', 'red'); // class 선택자
+        // javascript
+        // const standard = document.querySelector('.standard');
+        // standard.querySelectorAll('p').forEach((item) => {
+        //     item.style.color = 'blue'; // class 선택자
+        // });
+    </script>
+</body>
+</html>

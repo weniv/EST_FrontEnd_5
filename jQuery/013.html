@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <button>눌러!!</button>
+    <input type="text" placeholder="이름을 입력하세요.">
+    <script>
+        // jqeury event
+        // $('button').on('click', function() {
+        //     alert("버튼이 눌렸습니다.");
+        // });
+
+        // $('button').click('click', function() {
+        //     alert("버튼이 눌렸습니다.");
+        // });
+
+        // $('button').mouseover(function() {
+        //     alert("버튼에 마우스가 올라갔습니다.");
+        // });
+
+        // $('button').mouseout(function() {
+        //     alert("버튼에서 마우스가 나갔습니다.");
+        // });
+
+        // 누르고 있었을 때에는 작동하지 않습니다.
+        // 눌렀다 땔 경우 작동합니다.
+        // $('input').keyup(function() {
+        //     alert("키가 눌렸습니다!!!");
+        // });
+
+        // 눌리고 있는 동안 동작합니다.
+        // $('input').keydown(function() {
+        //     alert("키가 눌렸습니다~~~");
+        // });
+
+        // document.addEventListener("keyup", (e) => {
+        //     console.log('keyup:', e.key);
+        // });
+
+        document.addEventListener("keydown", (e) => {
+            console.log('keydown:', e.key);
+        });
+    </script>
+</body>
+</html>

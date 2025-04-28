@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1 class="title">hello world h1</h1>
+    <section>
+        <h2 class="sec_title">hello world h2</h2>
+        <p class="sec_content">Lorem ipsum dolor</p>
+        <p class="sec_content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, porro?</p>
+        <img src="" alt="">
+    </section>
+    <script>
+        // $("p").hide(); // 모든 p 태그 숨기기
+        // $("p").show(); // 모든 p 태그 보이기
+        $(".sec_content").html("안녕하세요");
+        $(".title").css('color', 'red');
+        $("img").attr('src', 'a.jpg');
+        $("section").click(function(){
+            alert('클릭되었습니다!!');
+        });
+    </script>
+</body>
+</html>

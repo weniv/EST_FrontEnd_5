@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <p>hello world one</p>
+    <div>hello world two</div>
+    <script>
+        // // jquery
+        // $("p").addClass("red").removeClass("blue").toggleClass("green");
+
+        // if ($("p").hasClass("red")) {
+        //     $("p").addClass("blue");
+        // } else {
+        //     $("p").removeClass("blue");
+        // }
+
+        //javascript
+        const p = document.querySelector("p");
+        p.classList.add("red");
+        p.classList.add("green");
+        // p.classList.remove("blue");
+        // p.classList.toggle("red");
+        p.classList.value = 'green blue';
+    </script>
+</body>
+</html>

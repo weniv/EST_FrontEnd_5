@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li>hello world one</li>
+        <li>hello world two</li>
+        <li>hello world three</li>
+        <li>hello world four</li>
+    </ul>
+    <script>
+        // append
+        // jquery
+        // $('ul').append('<li>hello world five</li>');
+        // javascript
+        // document.querySelector('ul').innerHTML += '<li>hello world five</li>';
+        // dom을 생성해서 추가
+        // const li = document.createElement('li');
+        // li.innerText = 'hello world five';
+        // document.querySelector('ul').appendChild(li);
+
+        // prepend
+        // jquery
+        // $('ul').prepend('<li>hello world five</li>');
+        // javascript
+        // document.querySelector('ul').innerHTML = '<li>hello world five</li>' + document.querySelector('ul').innerHTML;
+        // dom을 생성해서 추가
+        // const li = document.createElement('li');
+        // li.innerText = 'hello world five';
+        // document.querySelector('ul').insertBefore(li, document.querySelector('ul').firstChild);
+
+        // after
+        // jquery
+        // $('ul').after('<p>hello world</p>')
+        // javascript
+        // document.querySelector('ul').insertAdjacentHTML('afterend', '<p>hello world</p>');
+        // dom을 생성해서 추가
+        // const p = document.createElement('p');
+        // p.innerText = 'hello world';
+        // document.querySelector('ul').parentNode.insertBefore(p, document.querySelector('ul').nextSibling);
+        // 개선된 dom 코드
+        const p = document.createElement('p');
+        p.innerText = 'hello world';
+        // document.querySelector('ul').parentElement.appendChild(p);
+        document.querySelector('ul').parentElement.insertBefore(p, document.querySelector('ul'));
+
+        // before
+        // jquery
+        // $('ul').before('<p>hello world</p>');
+        // javascript
+        // document.querySelector('ul').insertAdjacentHTML('beforebegin', '<p>hello world</p>');
+        // dom을 생성해서 추가
+        // const p = document.createElement('p');
+        // p.innerText = 'hello world';
+        // document.querySelector('ul').parentNode.insertBefore(p, document.querySelector('ul'));
+    </script>
+</body>
+</html>
