@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>내 html에 리액트 1분만에 추가해보기!</h1>
+        <p>단 1분만에 설치없이 리액트를 추가할 수 있다구요?</p>
+        <div id="root"></div>
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+            function HelloButton(props) {
+                // text: 현재 상태값, setText: 상태를 업데이트하는 함수, "world": 초기 상태값
+                const [text, setText] = React.useState("world");
+
+                function handleClickButton() {
+                    // 상태를 "hello world"로 바꿔줘
+                    setText("hello world");
+                }
+                // JSX 문법
+                return <button onClick={handleClickButton}>{text}</button>;
+            }
+
+            // 컴포넌트 재사용
+            const app = (
+                <div>
+                    <h1>ESTsoft 5기 여러분</h1>
+                    <p>모두 화이팅!!! </p>
+                    <HelloButton />
+                    <HelloButton />
+                    <HelloButton />
+                    <HelloButton />
+                    <HelloButton />
+                    <HelloButton />
+                </div>
+            );
+
+            const domContainer = document.querySelector("#root");
+            // ReactDOM.createRoo - 루트 노드를 만들고, 그 루트 노드를 기반으로 리액트 앱을 렌더링
+            const root = ReactDOM.createRoot(domContainer);
+            root.render(app, domContainer);
+        </script>
+    </body>
+</html>

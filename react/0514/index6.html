@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            // 일반 매개변수 방식
+            function Header(menuOne, menuTwo) {
+                return (
+                    <div>
+                        <div>header</div>
+                        <div>menu</div>
+                        <div>{menuOne}</div>
+                        <div>{menuTwo}</div>
+                    </div>
+                );
+            }
+
+            // props 객체를 구조분해 할당으로 사용
+            // React 컴포넌트의 표준 패턴
+            function Main({ name, age }) {
+                return (
+                    <div>
+                        <main>
+                            <h1>hello {name}</h1>
+                            <p>hello {age}</p>
+                        </main>
+                    </div>
+                );
+            }
+
+            function Main2(props) {
+                return (
+                    <div>
+                        <main>
+                            <h1>hello {props.name}</h1>
+                            <p>hello {props.age}</p>
+                        </main>
+                    </div>
+                );
+            }
+
+            function f() {
+                return 100;
+            }
+
+            const isLogin = true;
+
+            function Login() {
+                return (
+                    <div>
+                        <input type="text" />
+                        <input type="password" />
+                        <button>로그인</button>
+                    </div>
+                );
+            }
+
+            function Logout() {
+                return (
+                    <div>
+                        <button>로그아웃</button>
+                    </div>
+                );
+            }
+
+            function Print(props) {
+                console.log("Print: ", props);
+                return null;
+            }
+
+            const body = (
+                <div>
+                    {Header("about", "product")}
+                    <Main name="hojun" age="10" />
+                    {/*JSX의 주석*/}
+                    {/*여러가지 표현식*/}
+                    {console.log("hello world")}
+                    {1 + 2}
+                    {"hello" + "world"}
+                    {f()}
+                    {isLogin ? <Logout /> : <Login />}
+                    <Print>
+                        hello world1
+                        <h1>hello world2</h1>
+                        <h2>hello world3</h2>
+                    </Print>
+                </div>
+            );
+
+            const domContainer = document.querySelector("#root");
+            const root = ReactDOM.createRoot(domContainer);
+            root.render(body);
+        </script>
+    </body>
+</html>

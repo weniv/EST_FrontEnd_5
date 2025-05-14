@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- 렌더링 했을때 실제로 화면에 보이는 구조 -->
+        <!-- <h1 class="greeting">Hello <i>재현</i>. Welcome!</h1> -->
+        <div id="root"></div>
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+            // 1. 바닐라 자바스크립트
+            function greetingJs() {
+                const h1 = document.createElement("h1");
+                h1.classList.add("greeting");
+                h1.appendChild(document.createTextNode("Hello "));
+
+                const elI = document.createElement("i");
+                elI.appendChild(document.createTextNode("재현"));
+                h1.appendChild(elI);
+                h1.appendChild(document.createTextNode(". Welcome!"));
+
+                return h1;
+            }
+
+            // 2. React.createElement
+            function Greeting({ name }) {
+                return React.createElement(
+                    "h1", // 첫번째 인자: 만들 요소의 종류
+                    { className: "greeting" }, // 두번째 인자: 요소의 프로퍼티
+                    "Hello ", // 세번째 인자 이후로는 자식요소
+                    React.createElement("i", null, name),
+                    ". Welcome!"
+                );
+            }
+            const domContainer = document.querySelector("#root");
+            const root = ReactDOM.createRoot(domContainer);
+
+            // 3. JSX
+            function GreetingJSX() {
+                return (
+                    <h1 class="greeting">
+                        Hello <i>재현</i>. Welcome!
+                    </h1>
+                );
+            }
+
+            // 1. 바닐라 자바스크립트
+            // domContainer.appendChild(greetingJs());
+            // 2. React.createElement
+            // root.render(React.createElement(Greeting, { name: "재현" }));
+            // 3. JSX
+            root.render(<GreetingJSX />);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>리액트 1분만에 추가해보기!</title>
+    </head>
+    <body>
+        <h1>내 html에 리액트 1분만에 추가해보기!</h1>
+        <p>단 1분만에 설치없이 리액트를 추가할 수 있다구요?</p>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+            // react 컴포넌트 정의하기
+            const el = React.createElement;
+
+            // HelloButton이라는 리액트 컴포넌트를 클래스로 정의
+            class HelloButton extends React.Component {
+                constructor(props) {
+                    super(props);
+
+                    this.state = { liked: false };
+                }
+
+                render() {
+                    if (this.state.liked) {
+                        return "Hello World!";
+                    }
+
+                    // state 상태가 바뀌면 자동으로 render() 메서드가 다시 실행
+                    return <button onClick={() => this.setState({ liked: true })}>Hello</button>;
+                }
+            }
+
+            // DOM에 리액트 컴포넌트 랜더링하기
+            const domContainer = document.querySelector("#root");
+
+            // ReactDOM.createRoot 함수는 React 18부터 도입된 함수로, React 애플리케이션에서 루트 노드를 만들고, 그 루트 노드를 기반으로 리액트 앱을 렌더링하는 데 사용됩니다.
+            const root = ReactDOM.createRoot(domContainer);
+            root.render(el(HelloButton));
+
+            // 전체 동작흐름
+            // 1. 화면에 버튼이 나타남
+            // 2. 버튼을 클릭
+            // 3. 상태가 {liked: true}로 바뀜
+            // 4. render() 메서드가 자동으로 다시 실행
+            // 5. this.state.liked의 값이 true이므로 "Hello World!"가 화면에 나타남
+        </script>
+    </body>
+</html>
