@@ -1,0 +1,36 @@
+.btn {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.btn:hover:not(:disabled) {
+    opacity: 0.8;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+}
+
+/* 색상 스타일 */
+.blue-btn {
+    background-color: royalblue;
+}
+
+.red-btn {
+    background-color: crimson;
+}
+
+.green-btn {
+    background-color: greenyellow;
+}
+
+/* 크기 스타일 */
+.large-btn {
+    width: 200px;
+}
+
+.small-btn {
+    width: 100px;
+}
