@@ -2,7 +2,7 @@ import Button from "./Components/Button";
 import { Hello, Hi } from "./Components/Hello";
 import ProductCard2 from "./Components/ProductCard";
 import ProfileCard from "./Components/ProfileCard";
-import { profileData } from "./data/\bprofileData";
+import { profileData } from "./data/profileData";
 import { products } from "./data/productData";
 import { userInfo } from "./data/userData";
 
