@@ -1,0 +1,21 @@
+/* div {
+    background: pink;
+}
+
+h2 {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    color: lemonchiffon;
+} */
+
+.box {
+    background: pink;
+}
+
+.text {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    color: lemonchiffon;
+}

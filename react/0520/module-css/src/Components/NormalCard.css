@@ -1,0 +1,64 @@
+.card {
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+}
+
+.image {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    overflow: hidden;
+}
+
+.image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.content {
+    padding: 15px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #9b59b6;
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+
+.title {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.price {
+    font-weight: 600;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.excerpt {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+.button {
+    width: 100%;
+    padding: 8px 0;
+    background-color: #9b59b6; /* 모든 버튼이 보라색으로 표시됨 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}

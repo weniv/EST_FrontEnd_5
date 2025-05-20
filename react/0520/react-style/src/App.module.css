@@ -1,0 +1,27 @@
+/* div {
+    margin: 40px;
+    background: blanchedalmond;
+}
+
+h2 {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    color: Red;
+} */
+
+.box {
+    margin: 40px;
+    background: blanchedalmond;
+}
+
+.text {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    color: Red;
+}
+
+/* .box ul {
+    color: blue;
+} */
