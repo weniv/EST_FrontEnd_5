@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class="greeting">
+        Hello <i>재현</i>. Welcome!
+    </h1>
+
+    <script>
+        function greeting() {
+            const h1 = document.createElement('h1');
+            h1.classList.add('greeting');
+            h1.appendChild(document.createTextNode('Hello'));
+            const elI = document.createElement('i');
+            elI.appendChild(document.createTextNode('재현'));
+            h1.appendChild(elI);
+            h1.appendChild(document.createTextNode('. Welcome!'));
+            return h1
+        }
+
+        function greetingVDom() {
+            return React.createElement(
+                'h1',
+                { className: 'greeting' },
+                'Hello ',
+                React.createElement('i', null, '재현'),
+                '. Welcome!'
+            );
+        }
+
+        function greetingJsx() {
+            return (
+                <h1 className="greeting">
+                    Hello <i>재현</i>. Welcome!
+                </h1>
+            );
+        }
+    </script>
+</body>
+
+</html>
