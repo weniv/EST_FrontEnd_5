@@ -1,0 +1,34 @@
+{
+    "nations": [
+        {
+            "title": "France",
+            "population": "200",
+            "id": "1",
+            "loc": "europe"
+        },
+        {
+            "title": "Italy",
+            "population": "300",
+            "id": "2",
+            "loc": "europe"
+        },
+        {
+            "title": "England",
+            "population": "400",
+            "id": "3",
+            "loc": "europe"
+        },
+        {
+            "title": "America",
+            "population": "500",
+            "id": "4",
+            "loc": "north-america"
+        },
+        {
+            "title": "Korea",
+            "population": "600",
+            "id": "5",
+            "loc": "asia"
+        }
+    ]
+}
