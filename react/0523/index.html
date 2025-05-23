@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1, 1, 2, 3, 5, 8 ...
+
+        function fn(n) {
+            if (n === 1 || n === 2) {
+                return 1
+            } else {
+                return fn(n - 1) + fn(n - 2)
+            }
+        }
+
+        // fn(5) + fn(4)
+        // fn(4) + fn(3) + fn(3) + fn(2)
+        // fn(3) + fn(2) + fn(2) + fn(1) + fn(2) + fn(1) + 1
+        // fn(2) + fn(1) + 1 + 1 + 1 + 1 + 1 + 1
+        fn(6);
+
+        let n = 6;
+        const memory = new Array(n + 1).fill(0);
+
+        function fnM(n) {
+            if (n === 1 || n === 2) {
+                return 1
+            } else if (memory[n] !== 0) {
+                return memory[n]
+            } else {
+                memory[n] = fn(n - 1) + fn(n - 2)
+                return memory[n]
+            }
+        }
+        // [0,1,1,2, 3, 5,8] ==> 8
+        // memory[2] = fn(1)
+
+    </script>
+</body>
+
+</html>
