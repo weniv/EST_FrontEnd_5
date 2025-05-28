@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text">
+    <h1></h1>
+    <script>
+        const inp = document.querySelector('input');
+        const h1 = document.querySelector('h1');
+
+        function debounce(callback, delay) {
+            let timeoutId;
+            return (text) => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    callback(text);
+                }, delay);
+            }
+        }
+
+        const debounceCallback = debounce((text) => {
+            console.log(text);
+            h1.textContent = text;
+        }, 200);
+
+        inp.addEventListener('input', (event) => {
+            debounceCallback(event.target.value);
+        });
+    </script>
+</body>
+
+</html>
