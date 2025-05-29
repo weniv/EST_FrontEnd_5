@@ -1,0 +1,18 @@
+{
+  "name": "makereact",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d build -w",
+    "start": "npx http-server ./build -c-1 -p 3002"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.3",
+    "@babel/preset-react": "^7.27.1"
+  }
+}
