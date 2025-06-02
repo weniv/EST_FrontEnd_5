@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+        }
+        
+        .filter-btn { 
+            padding: 8px 16px; 
+            margin: 5px; 
+            border: 2px solid #ddd; 
+            background: white; 
+            cursor: pointer; 
+        }
+        
+        .filter-btn.active { 
+            background: #ff5a5f; 
+            color: white; 
+        }
+        
+        .listing { 
+            border: 3px solid #ddd; 
+            padding: 15px; 
+            margin: 10px 0; 
+        }
+        
+        .listing.hidden { 
+            display: none; 
+        }
+        
+        .amenity { 
+            display: inline-block; 
+            background: #f0f0f0; 
+            padding: 2px 6px; 
+            margin: 2px; 
+            font-size: 12px; 
+        }
+        
+        .amenity.highlight { 
+            background: #ff5a5f; 
+            color: white; 
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Redux Airbnb 필터링</h1>
+    
+    <div>
+        <h3>편의시설 필터:</h3>
+        <button class="filter-btn" onclick="toggleFilter('무료 주차 공간')">무료 주차 공간</button>
+        <button class="filter-btn" onclick="toggleFilter('대형 욕조')">대형 욕조</button>
+        <button class="filter-btn" onclick="toggleFilter('바베큐 그릴')">바베큐 그릴</button>
+        <button class="filter-btn" onclick="toggleFilter('게스트용 별채')">게스트용 별채</button>
+        <button class="filter-btn" onclick="toggleFilter('수영장')">수영장</button>
+        <button class="filter-btn" onclick="toggleFilter('주방')">주방</button>
+        <button class="filter-btn" onclick="toggleFilter('TV')">TV</button>
+    </div>
+
+    <div id="resultsInfo"></div>
+
+    <div id="listingsContainer">
+        <!-- 숙소 목록이 여기에 렌더링 -->
+    </div>
+
+    <script>
+        // 샘플 데이터
+        const listings = [
+            { id: 1, title: "도심 아파트", location: "강남구", price: "85,000원", amenities: ["무료 주차 공간", "주방", "TV"] },
+            { id: 2, title: "럭셔리 펜트하우스", location: "한남동", price: "250,000원", amenities: ["대형 욕조", "수영장", "게스트용 별채", "주방", "TV"] },
+            { id: 3, title: "바다뷰 펜션", location: "해운대", price: "120,000원", amenities: ["바베큐 그릴", "주방", "무료 주차 공간"] },
+            { id: 4, title: "산속 별장", location: "평창", price: "95,000원", amenities: ["바베큐 그릴", "게스트용 별채", "무료 주차 공간", "TV"] },
+            { id: 5, title: "모던 스튜디오", location: "홍대", price: "65,000원", amenities: ["주방", "TV"] },
+            { id: 6, title: "리조트 빌라", location: "제주도", price: "180,000원", amenities: ["수영장", "대형 욕조", "바베큐 그릴", "무료 주차 공간", "주방", "TV"] }
+        ];
+
+        // Redux 스토어 생성
+        const store = Redux.createStore(reducer);
+
+        function reducer(state, action) {
+            console.log('Redux Action:', action); // Redux 액션 로깅
+            
+            if (state === undefined) {
+                return {
+                    listings: listings,
+                    activeFilters: [],
+                    filteredListings: listings
+                };
+            }
+
+            if (action.type === 'TOGGLE_FILTER') {
+                const newFilters = state.activeFilters.includes(action.filter)
+                    ? state.activeFilters.filter(f => f !== action.filter)
+                    : [...state.activeFilters, action.filter];
+                
+                const filteredListings = newFilters.length === 0 
+                    ? state.listings
+                    : state.listings.filter(listing => 
+                        newFilters.every(filter => listing.amenities.includes(filter))
+                    );
+
+                return {
+                    ...state,
+                    activeFilters: newFilters,
+                    filteredListings: filteredListings
+                };
+            }
+
+            return state;
+        }
+
+        // 액션 디스패치
+        function toggleFilter(filter) {
+            store.dispatch({ type: 'TOGGLE_FILTER', filter: filter });
+        }
+
+        // UI 업데이트 함수들
+        function updateUI() {
+            const state = store.getState();
+            console.log('Current State:', state); // 현재 상태 로깅
+            
+            // 필터 버튼 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const filterText = btn.textContent.trim();
+                btn.classList.toggle('active', state.activeFilters.includes(filterText));
+            });
+
+            // 결과 정보 업데이트
+            const resultsInfo = document.getElementById('resultsInfo');
+            resultsInfo.innerHTML = `<p><strong>활성 필터:</strong> ${state.activeFilters.join(', ') || '없음'} | <strong>결과:</strong> ${state.filteredListings.length}개 숙소</p>`;
+
+            // 숙소 목록 업데이트
+            const container = document.getElementById('listingsContainer');
+            container.innerHTML = state.filteredListings.map(listing => `
+                <div class="listing">
+                    <h4>${listing.title} - ${listing.location}</h4>
+                    <p>가격: ${listing.price}</p>
+                    <p>편의시설: 
+                        ${listing.amenities.map(amenity => 
+                            `<span class="amenity ${state.activeFilters.includes(amenity) ? 'highlight' : ''}">${amenity}</span>`
+                        ).join(' ')}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        // 스토어 구독 - 상태가 변경될 때마다 UI 업데이트
+        store.subscribe(updateUI);
+
+        // 초기 렌더링
+        updateUI();
+        /*
+        Claude에게 지금 프로젝트가 오버엔지니어링이 아니냐고 물어봤을 때 답변입니다.
+
+        ## 🤔 현재 프로젝트에서는 Redux가 과한 이유
+
+        **일반 Filter 방식:**
+        ```javascript
+        let activeFilters = [];
+        function toggleFilter(filter) {
+            if (activeFilters.includes(filter)) {
+                activeFilters = activeFilters.filter(f => f !== filter);
+            } else {
+                activeFilters.push(filter);
+            }
+            updateUI();
+        }
+        ```
+        - 코드 10줄로 끝
+        - 이해하기 쉬움
+        - 성능도 충분
+
+        **Redux 방식:**
+        - 코드 50줄 이상
+        - 개념 학습 필요 (store, reducer, action, dispatch)
+        - 설정이 복잡
+
+        ## 🚀 Redux가 진짜 필요한 상황들
+
+        ### 1. **복잡한 상태 공유**
+        ```javascript
+        // 여러 컴포넌트에서 같은 데이터를 사용할 때
+        - Header: 로그인 상태, 장바구니 개수
+        - Sidebar: 사용자 정보
+        - Main: 상품 목록
+        - Footer: 알림 개수
+        ```
+
+        ### 2. **상태 변화의 복잡성**
+        ```javascript
+        // 하나의 액션이 여러 상태를 동시에 변경
+        - "상품 구매" 버튼 클릭 시:
+        * 재고 수량 감소
+        * 장바구니에서 제거
+        * 주문 내역에 추가
+        * 포인트 적립
+        * 알림 생성
+        ```
+
+        ### 3. **디버깅이 중요한 경우**
+        ```javascript
+        // 버그 발생 시 "어떤 순서로 상태가 변했는지" 추적 필요
+        - 은행 앱: 잔액 변화 추적
+        - 게임: 점수/레벨 변화 추적
+        - 전자상거래: 주문 과정 추적
+        ```
+
+        ### 4. **실제 Airbnb 같은 서비스라면?**
+        ```javascript
+        // 실제로는 이런 복잡한 상태들이 있음:
+        {
+        user: { id, name, preferences },
+        filters: { amenities, price, location, dates },
+        listings: { data, loading, error },
+        booking: { selectedDates, guestCount, totalPrice },
+        map: { center, zoom, markers },
+        reviews: { data, rating },
+        payments: { methods, processing }
+        }
+        ```
+
+        ## 🎯 예측 가능한 상태 변화가 중요한 이유
+
+        ### 버그 발생 시나리오:
+        ```javascript
+        // 일반 방식 - 어디서 상태가 변했는지 모름
+        function someFunction() {
+            activeFilters.push("수영장");
+            // ... 100줄 후
+            activeFilters = []; // 누가 언제 이걸 했지?
+        }
+
+        // Redux 방식 - 모든 변화가 기록됨
+        // Action Log:
+        // 1. { type: 'ADD_FILTER', filter: '수영장' }
+        // 2. { type: 'CLEAR_FILTERS' }
+        ```
+
+        ## 💡 결론: 언제 Redux를 써야 할까?
+
+        **❌ Redux 필요 없는 경우:**
+        - 단순한 필터링, 검색
+        - 컴포넌트 1-2개
+        - 상태가 간단함
+        - 개인 프로젝트나 프로토타입
+
+        **✅ Redux 고려해야 하는 경우:**
+        - 컴포넌트 5개 이상에서 같은 상태 공유
+        - 복잡한 비즈니스 로직
+        - 팀 프로젝트 (상태 변화 규칙 통일)
+        - 사용자 액션 추적이 중요한 앱
+
+        **현재 프로젝트는 학습용이라 Redux를 쓰지만, 실제로는 일반 filter가 더 적합합니다!** Redux는 "복잡한 상태 관리가 필요할 때의 해결책"이지, "모든 상황의 정답"은 아니에요.
+        */
+    </script>
+</body>
+
+</html>
