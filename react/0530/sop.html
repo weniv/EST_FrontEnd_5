@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>SOP TEST!</h1>
+
+    <iframe class="test" src="test.html" frameborder="0"></iframe>
+
+    <iframe class="test2" width="1344" height="756" src="https://www.youtube.com/embed/phuiiNCxRMg"
+        title="aespa 에스파 &#39;Supernova&#39; MV" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <script>
+        const test = document.querySelector('.test2');
+
+        test.addEventListener('load', () => {
+            console.log(test.contentDocument);
+            test.contentDocument.body.style.backgroundColor = 'pink';
+        })
+    </script>
+</body>
+
+</html>

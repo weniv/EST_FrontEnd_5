@@ -1,0 +1,19 @@
+{
+    "user": [
+        {
+            "id": 1,
+            "userName": "jaehyun",
+            "password": "wade"
+        },
+        {
+            "id": 2,
+            "userName": "wonbum",
+            "password": "gary"
+        },
+        {
+            "id": 3,
+            "userName": "jin",
+            "password": "ali"
+        }
+    ]
+}
