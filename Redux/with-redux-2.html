@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Redux Color Changer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+    <style>
+        .container {
+            border: 5px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="red-component"></div>
+    <div id="blue-component"></div>
+    <div id="green-component"></div>
+
+    <script>
+        /**
+         * =====================================================
+         * REDUX CORE: REDUCER 함수
+         * =====================================================
+         * Redux의 핵심 - 순수 함수로 상태 변화를 처리
+         * 
+         * 🔥 핵심 원칙:
+         * 1. 순수 함수: 같은 입력에 대해 항상 같은 출력
+         * 2. 불변성: 기존 state를 직접 수정하지 않고 새로운 객체 반환
+         * 3. 부수 효과 없음: API 호출, DOM 조작 등 금지
+         * 
+         * @param {Object} state - 현재 애플리케이션 상태
+         * @param {Object} action - 상태 변경 명령 객체 (type 필수)
+         * @returns {Object} 새로운 상태 객체
+         */
+        const reducer = (state, action) => {
+            console.log('🔄 Reducer 호출:', { 
+                currentState: state, 
+                action: action,
+                timestamp: new Date().toLocaleTimeString()
+            });
+
+            // 초기 상태 설정
+            // Redux store 생성 시 자동으로 호출되며, 이때 state는 undefined
+            if (state === undefined) {
+                const initialState = { color: 'yellow' };
+                console.log('🌟 초기 상태 설정:', initialState);
+                return initialState;
+            }
+
+            // Action 타입에 따른 상태 변경 처리
+            switch (action.type) {
+                case 'CHANGE_COLOR':
+                    console.log('🎨 색상 변경:', `${state.color} → ${action.color}`);
+                    
+                    // 불변성을 위해 spread operator 사용 (ES6+)
+                    // Object.assign 대신 더 현대적인 방식
+                    const newState = {
+                        ...state,  // 기존 상태의 모든 속성 복사
+                        color: action.color  // color 속성만 새 값으로 덮어쓰기
+                    };
+                    
+                    console.log('✅ 새로운 상태 생성:', newState);
+                    return newState;
+
+                default:
+                    // 알 수 없는 action type인 경우 기존 상태 그대로 반환
+                    console.log('⚠️ 알 수 없는 액션 타입:', action.type);
+                    return state;
+            }
+        };
+
+        /**
+         * =====================================================
+         * REDUX STORE 생성 및 설정
+         * =====================================================
+         * Redux store: 애플리케이션의 상태를 관리하는 중앙 저장소
+         */
+        const store = Redux.createStore(
+            reducer,
+            // Redux DevTools Extension 연동 (브라우저 확장 프로그램)
+            // 개발 중에만 사용, 프로덕션에서는 제거 권장
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        );
+
+        console.log('🏪 Redux Store 생성 완료');
+        console.log('📊 초기 상태:', store.getState());
+
+        /**
+         * =====================================================
+         * UTILITY FUNCTIONS
+         * =====================================================
+         */
+
+        /**
+         * 액션 생성자 함수 (Action Creator)
+         * 액션 객체 생성을 위한 팩토리 함수
+         * @param {string} color - 변경할 색상
+         * @returns {Object} Redux 액션 객체
+         */
+        const changeColorAction = (color) => ({
+            type: 'CHANGE_COLOR',
+            color: color,
+            timestamp: Date.now()  // 추가 메타데이터
+        });
+
+        /**
+         * =====================================================
+         * COMPONENT FUNCTIONS (View Layer)
+         * =====================================================
+         * 각 컴포넌트는 자신만의 렌더링 로직을 가짐
+         * Redux 상태가 변경될 때마다 자동으로 리렌더링
+         */
+
+        /**
+         * Red 컴포넌트 렌더링 함수
+         * store.subscribe()에 의해 상태 변경 시 자동 호출
+         */
+        const renderRedComponent = () => {
+            console.log('🔴 Red 컴포넌트 렌더링 시작');
+            
+            // 현재 상태를 store에서 가져오기
+            const currentState = store.getState();
+            
+            // 대상 DOM 요소 찾기
+            const targetElement = document.querySelector('#red-component');
+            
+            // HTML 템플릿 리터럴을 사용한 동적 렌더링
+            targetElement.innerHTML = `
+                <div class="container" style="background-color: ${currentState.color}">
+                    <h1>red</h1>
+                    <input type="button" value="fire" onclick="handleColorChange('red')">
+                </div>
+            `;
+            
+            console.log('✅ Red 컴포넌트 렌더링 완료');
+        };
+
+        /**
+         * Blue 컴포넌트 렌더링 함수
+         */
+        const renderBlueComponent = () => {
+            console.log('🔵 Blue 컴포넌트 렌더링 시작');
+            
+            const currentState = store.getState();
+            const targetElement = document.querySelector('#blue-component');
+            
+            targetElement.innerHTML = `
+                <div class="container" style="background-color: ${currentState.color}">
+                    <h1>blue</h1>
+                    <input type="button" value="fire" onclick="handleColorChange('blue')">
+                </div>
+            `;
+            
+            console.log('✅ Blue 컴포넌트 렌더링 완료');
+        };
+
+        /**
+         * Green 컴포넌트 렌더링 함수
+         */
+        const renderGreenComponent = () => {
+            console.log('🟢 Green 컴포넌트 렌더링 시작');
+            
+            const currentState = store.getState();
+            const targetElement = document.querySelector('#green-component');
+            
+            targetElement.innerHTML = `
+                <div class="container" style="background-color: ${currentState.color}">
+                    <h1>green</h1>
+                    <input type="button" value="fire" onclick="handleColorChange('green')">
+                </div>
+            `;
+            
+            console.log('✅ Green 컴포넌트 렌더링 완료');
+        };
+
+        /**
+         * =====================================================
+         * EVENT HANDLERS
+         * =====================================================
+         */
+
+        /**
+         * 색상 변경 이벤트 핸들러
+         * 버튼 클릭 시 호출되어 Redux 액션을 디스패치
+         * @param {string} color - 변경할 색상
+         */
+        const handleColorChange = (color) => {
+            console.log(`🎯 색상 변경 요청: ${color}`);
+            
+            // 액션 생성자를 사용하여 액션 객체 생성
+            const action = changeColorAction(color);
+            
+            // Redux store에 액션 디스패치
+            // 이로 인해 reducer가 호출되고, 상태가 변경되며, 구독자들이 실행됨
+            store.dispatch(action);
+            
+            console.log('📤 액션 디스패치 완료:', action);
+        };
+
+        /**
+         * =====================================================
+         * SUBSCRIPTION & INITIALIZATION
+         * =====================================================
+         * Redux store 구독 설정 및 초기 렌더링
+         */
+
+        // 상태 변경 감지를 위한 구독자 등록
+        // store.subscribe()는 상태가 변경될 때마다 등록된 함수를 자동 실행
+        console.log('👂 컴포넌트 구독자 등록 중...');
+
+        store.subscribe(renderRedComponent);
+        store.subscribe(renderBlueComponent);
+        store.subscribe(renderGreenComponent);
+
+        console.log('✅ 모든 구독자 등록 완료');
+
+        /**
+         * =====================================================
+         * INITIAL RENDER
+         * =====================================================
+         * 애플리케이션 시작 시 초기 렌더링 수행
+         */
+        console.log('🚀 초기 렌더링 시작...');
+
+        // 각 컴포넌트 초기 렌더링
+        renderRedComponent();
+        renderBlueComponent();
+        renderGreenComponent();
+
+        console.log('🎉 애플리케이션 초기화 완료!');
+
+        /**
+         * =====================================================
+         * REDUX 동작 흐름 정리
+         * =====================================================
+         * 
+         * 1️⃣ 사용자 인터랙션
+         *    - 사용자가 버튼 클릭
+         *    - handleColorChange() 함수 실행
+         * 
+         * 2️⃣ 액션 생성 및 디스패치
+         *    - changeColorAction()으로 액션 객체 생성
+         *    - store.dispatch()로 Redux store에 액션 전달
+         * 
+         * 3️⃣ Reducer 실행
+         *    - Redux가 자동으로 reducer 함수 호출
+         *    - 현재 상태(state)와 액션(action)을 매개변수로 전달
+         * 
+         * 4️⃣ 상태 업데이트
+         *    - reducer가 새로운 상태 객체 반환
+         *    - Redux가 상태 변경을 감지
+         * 
+         * 5️⃣ 구독자 실행
+         *    - store.subscribe()로 등록된 모든 함수들이 자동 실행
+         *    - 각 컴포넌트 렌더링 함수가 순차적으로 호출
+         * 
+         * 6️⃣ UI 업데이트
+         *    - store.getState()로 새로운 상태 조회
+         *    - DOM 요소들이 새로운 상태에 맞게 업데이트
+         * 
+         * 🔄 이 과정이 매번 반복되어 상태와 UI의 동기화 유지
+         */
+
+        // 전역 함수로 등록 (onclick 핸들러에서 사용하기 위함)
+        window.handleColorChange = handleColorChange;
+    </script>
+</body>
+</html>

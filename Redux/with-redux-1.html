@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리덕스를 사용해서 상태 관리하기기</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+    <style>
+        .container {
+            border: 5px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="red-component"></div>
+    <div id="green-component"></div>
+    <div id="blue-component"></div>
+    <div id="test-component"></div>
+    <script>
+        // 바리스타(상태, 주문서)
+        const reducer = (state, action) => {
+            // 초기 상태(state)를 정의
+            if (state === undefined){
+                return {
+                    color: 'yellow'
+                }
+            }
+            // 주문서(action)에 따라 상태(state)를 변경
+            switch (action.type){
+                case 'CHANGE_COLOR':
+                    return {
+                        ...state,
+                        color: action.color
+                    }
+                default:
+                    return state;
+            }
+        }
+
+        // 커피숖
+        const store = Redux.createStore(
+            reducer,
+            // Redux DevTools Extension을 사용하기 위한 설정
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        );
+
+        // 주문을 받는 점원(주문서를 생성하는 액션 크리에이터 함수수)
+        const changeColorAction = (color) => {
+            // 주문서(action)를 생성
+            return {
+                type: 'CHANGE_COLOR',
+                color: color,
+                timestamp: new Date().toISOString()
+            }
+        }
+
+        const renderRedComponent = () => {
+            const state = store.getState()
+            document.getElementById('red-component').innerHTML = `
+                <div class="container" id="component_red" style="background-color: ${state.color}">
+                    <h1>Red Component</h1>
+                    <input type="button" value="Red!" onclick="
+                        handleColorChange('red');
+                    ">
+                </div>
+            `
+        }
+        const renderGreenComponent = () => {
+            const state = store.getState()
+            document.getElementById('green-component').innerHTML = `
+                <div class="container" id="component_green" style="background-color: ${state.color}">
+                    <h1>Green Component</h1>
+                    <input type="button" value="Green!" onclick="
+                        handleColorChange('green');
+                    ">
+                </div>
+            `
+        }
+        const renderBlueComponent = () => {
+            const state = store.getState()
+            document.getElementById('blue-component').innerHTML = `
+                <div class="container" id="component_blue" style="background-color: ${state.color}">
+                    <h1>Blue Component</h1>
+                    <input type="button" value="blue!" onclick="
+                        handleColorChange('blue');
+                    ">
+                </div>
+            `
+        }
+
+        const renderTestComponent = () => {
+            const state = store.getState()
+            document.getElementById('test-component').innerHTML = `
+                <div class="container" id="component_test" style="background-color: ${state.color}">
+                    <h1>Test Component</h1>
+                    <input type="button" value="Test!" onclick="
+                        handleColorChange('yellow');
+                    ">
+                </div>
+            `
+        }
+
+        const handleColorChange = (color) => {
+            // 주문서를 생성하고 커피숖에 전달
+            // store에 dispatch를 하게 되면 reducer가 호출됩니다.
+            // reducer는 현재 상태(state)와 주문서(action)를 받아 새로운 상태를 반환합니다.
+            store.dispatch(changeColorAction(color))
+        }
+
+        // 진동벨 받는 사람(고객)
+        store.subscribe(renderRedComponent)
+        store.subscribe(renderGreenComponent)
+        store.subscribe(renderBlueComponent)
+
+        // 초기 렌더링
+        renderRedComponent()
+        renderGreenComponent()
+        renderBlueComponent()
+        renderTestComponent() // 재렌더링 안되는 컴포넌트
+
+    </script>
+</body>
+</html>
