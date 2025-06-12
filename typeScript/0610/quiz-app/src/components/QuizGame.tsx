@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import type { QuizQuestion, QuizSummary } from '../types/quiz'
 import he from 'he';
 
@@ -18,7 +18,8 @@ export default function QuizGame({ questions, onComplete }: QuizGameProps) {
     // 사용자가 선택한 문제 보기 정보
     const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(''));
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+        console.log('useLayoutEffect 실행');
         const shuffled = questions.map(question => {
             return [question.correct_answer, ...question.incorrect_answers].sort(() => Math.random() - 0.5);
         });
@@ -26,6 +27,8 @@ export default function QuizGame({ questions, onComplete }: QuizGameProps) {
         setShuffledAnswers(shuffled);
 
     }, []);
+
+    console.log('렌더링 시점, shuffledAnswers:', shuffledAnswers);
 
     const handleNext = () => {
         if (currentIndex < questions.length - 1) {
