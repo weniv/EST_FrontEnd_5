@@ -1,10 +1,13 @@
 const path = require('path'); // node.js 의 path 모듈을 불러옵니다. 운영체제별로 상이한 경로 문법(구분자 : / 혹은 \)를 해결해 절대 경로로 반환하는 역할을 합니다.
 const webpack = require('webpack');
+const childProcess = require('child_process');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 
 // 모듈을 밖으로 빼내는 노드 JS문법입니다. 엔트리, 아웃풋 그리고 번들링 모드를 설정할 수 있습니다.
 module.exports = {
-    mode: 'development',
+    mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
 
     entry: {
         main: path.resolve('./src/app.js')
@@ -47,7 +50,21 @@ module.exports = {
     },
     plugins: [
         new webpack.BannerPlugin({
-            banner: '마지막 빌드 시간은: ' + new Date().toLocaleString() + '입니다.'
-        })
+            banner:
+                `
+                    Commit version : ${childProcess.execSync('git rev-parse --short HEAD')}
+                    Committer : ${childProcess.execSync('git config user.name')}
+                    Commit Date : ${new Date().toLocaleString()}
+                `
+        }),
+        new webpack.DefinePlugin({
+            // 값을 단순히 문자열로 전달하면 값으로 인식하지 못하는 문제가 있습니다.
+            dev: JSON.stringify('https://dev.api.com'), // 혹은 "'https://dev.api.com'"
+            pro: JSON.stringify('https://pro.api.com')
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+        }),
+        new CleanWebpackPlugin()
     ]
 }
